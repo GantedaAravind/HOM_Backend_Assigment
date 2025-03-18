@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "src/index.js"
+    }
+  ],
+  "env": {
+    "PORT": 5000,
+    "MONGO_URI": "mongodb+srv://aravindganteda:7IPLolRaJX9oaRfP@cluster0.7e1vp.mongodb.net/HOM_Assignment?retryWrites=true&w=majority&appName=Cluster0",
+    "JWT_SECRET": "8oui2rwf89yoihjk524rwefuoikl32"
+  }
+}
