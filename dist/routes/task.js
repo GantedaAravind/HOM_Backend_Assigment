@@ -90,7 +90,7 @@ router.post("/", authenticate, /*#__PURE__*/function () {
 // ✅ Get All Tasks (with Pagination & Filtering)
 router.get("/", authenticate, /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2(req, res) {
-    var _req$query, _req$query$page, page, _req$query$limit, limit, priority, status, query, tasks;
+    var _req$query, _req$query$page, page, _req$query$limit, limit, priority, status, query, totalTasks, totalPages, tasks;
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
@@ -138,28 +138,38 @@ router.get("/", authenticate, /*#__PURE__*/function () {
           if (priority) query.priority = priority;
           if (status) query.status = status;
           _context2.next = 15;
+          return Task.countDocuments(query);
+        case 15:
+          totalTasks = _context2.sent;
+          totalPages = Math.ceil(totalTasks / parseInt(limit));
+          _context2.next = 19;
           return Task.find(query).sort({
             priority: 1,
             createdAt: 1
           }) // Sorting tasks (low priority to high)
           .skip((parseInt(page) - 1) * parseInt(limit)).limit(parseInt(limit));
-        case 15:
-          tasks = _context2.sent;
-          res.json(tasks);
-          _context2.next = 22;
-          break;
         case 19:
-          _context2.prev = 19;
+          tasks = _context2.sent;
+          res.json({
+            currentPage: parseInt(page),
+            totalPages: totalPages,
+            totalTasks: totalTasks,
+            tasks: tasks
+          });
+          _context2.next = 26;
+          break;
+        case 23:
+          _context2.prev = 23;
           _context2.t0 = _context2["catch"](0);
           res.status(500).json({
             message: "Server error",
             error: _context2.t0.message
           });
-        case 22:
+        case 26:
         case "end":
           return _context2.stop();
       }
-    }, _callee2, null, [[0, 19]]);
+    }, _callee2, null, [[0, 23]]);
   }));
   return function (_x3, _x4) {
     return _ref2.apply(this, arguments);
@@ -251,8 +261,6 @@ router.get("/:id", authenticate, /*#__PURE__*/function () {
     return _ref4.apply(this, arguments);
   };
 }());
-// ✅ Get Sorted Tasks (Priority-based Scheduling)
-
 // ✅ Update Task by ID
 router.put("/:id", authenticate, /*#__PURE__*/function () {
   var _ref5 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5(req, res) {

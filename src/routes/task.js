@@ -74,12 +74,20 @@ router.get("/", authenticate, async (req, res) => {
     if (priority) query.priority = priority;
     if (status) query.status = status;
 
+    const totalTasks = await Task.countDocuments(query);
+    const totalPages = Math.ceil(totalTasks / parseInt(limit));
+
     const tasks = await Task.find(query)
       .sort({ priority: 1, createdAt: 1 }) // Sorting tasks (low priority to high)
       .skip((parseInt(page) - 1) * parseInt(limit))
       .limit(parseInt(limit));
 
-    res.json(tasks);
+    res.json({
+      currentPage: parseInt(page),
+      totalPages,
+      totalTasks,
+      tasks,
+    });
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
   }
@@ -111,8 +119,6 @@ router.get("/:id", authenticate, async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 });
-// ✅ Get Sorted Tasks (Priority-based Scheduling)
-
 // ✅ Update Task by ID
 router.put("/:id", authenticate, async (req, res) => {
   try {
