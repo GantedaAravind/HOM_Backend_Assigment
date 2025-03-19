@@ -1,7 +1,4 @@
-### 📌 **README.md for Task Management API**
-
-````md
-# 🚀 Task Management API
+### 🚀 Task Management API
 
 This is a **RESTful API** for managing tasks, built using **Node.js, Express, MongoDB, and JWT authentication**.  
 It supports **user authentication, task CRUD operations, filtering, pagination, and task scheduling**.
@@ -34,9 +31,10 @@ It supports **user authentication, task CRUD operations, filtering, pagination, 
 ### 1️⃣ **Clone the repository**
 
 ```sh
-git clone https://github.com/YOUR_GITHUB_USERNAME/task-management-api.git
-cd task-management-api
+git clone https://github.com/GantedaAravind/HOM_Backend_Assigment.git
+cd HOM_Backend_Assigment
 ```
+
 ````
 
 ### 2️⃣ **Install dependencies**
@@ -53,6 +51,7 @@ Create a `.env` file in the root folder and add:
 PORT=5000
 MONGO_URI=mongodb://localhost:27017/taskdb
 JWT_SECRET=your_jwt_secret
+NODE_ENV=devlopment
 ```
 
 ### 4️⃣ **Start the server**
@@ -196,50 +195,6 @@ curl -X POST http://localhost:5000/tasks/ \
  ┣ 📜 server.js            # Entry point
 ```
 
----
-
-## 📌 Testing (Jest + Supertest)
-
-### **1️⃣ Install Test Dependencies**
-
-```sh
-npm install --save-dev jest supertest
-```
-
-### **2️⃣ Example Test (`tests/task.test.js`)**
-
-```javascript
-const request = require("supertest");
-const app = require("../server"); // Adjust path based on setup
-
-describe("Task API Tests", () => {
-  let token = "<YOUR_JWT_TOKEN>";
-
-  it("should create a new task", async () => {
-    const res = await request(app)
-      .post("/tasks/")
-      .set("Cookie", `auth_token=${token}`)
-      .send({
-        title: "Test Task",
-        description: "This is a test task",
-        status: "pending",
-        priority: "low",
-      });
-
-    expect(res.statusCode).toBe(201);
-    expect(res.body).toHaveProperty("title", "Test Task");
-  });
-});
-```
-
-### **3️⃣ Run Tests**
-
-```sh
-npm test
-```
-
----
-
 ## 📌 Future Enhancements
 
 - ✅ **Task deadline support**
@@ -257,7 +212,7 @@ This project is licensed under the **MIT License**.
 
 ## 📌 Contributors
 
-👨‍💻 **Aravind Ganteda**  
+👨‍💻 **Aravind Ganteda**
 💬 **Feel free to contribute or raise issues!**
 
 ---
@@ -279,3 +234,4 @@ Let me know if you need any changes! 🚀✨
 
 🔥 **This is a professional, production-ready README.** Let me know if you need modifications! 🚀
 ```
+````
