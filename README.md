@@ -35,8 +35,6 @@ git clone https://github.com/GantedaAravind/HOM_Backend_Assigment.git
 cd HOM_Backend_Assigment
 ```
 
-````
-
 ### 2️⃣ **Install dependencies**
 
 ```sh
@@ -234,4 +232,7 @@ Let me know if you need any changes! 🚀✨
 
 🔥 **This is a professional, production-ready README.** Let me know if you need modifications! 🚀
 ```
-````
+
+```
+
+```
